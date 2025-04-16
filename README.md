@@ -21,6 +21,10 @@ This repository contains an example of a collaborative workspace dashboard appli
 6. Use the username `marco.patierno` or `bob.marley` with any password to access the Dashboard
 7. Enjoy your real-time Kanban board and the team chat
 
+## Notes
+For this project I used Vanilla Javascript with JSDoc and for the store I opted for decentralized store approach without any library but somehow using a mixed concept between Pina and the classic React hook approach.
+Each store/hook is responsible for a specific domain and always expose the state and the mutation function.
+I also used the provide/inject approach to expose a component's ref and the mutation function to child components.
 
 ## Available Socket Events
 
@@ -72,8 +76,3 @@ socketService.sendMessage('Hello team!');
 // Send typing indicator
 socketService.setTyping(true); // or false when stopped typing
 ```
-
-## Notes
-For this project I used Vanilla Javascript with JSDoc and for the store I opted for decentralized store approach without any library but somehow using a mixed concept between Pina and the classic React hook approach.
-Each store/hook is responsible for a specific domain and always expose the state and the mutation function.
-I also used the provide/inject approach to expose a component's ref and the mutation function to child components.

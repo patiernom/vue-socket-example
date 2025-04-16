@@ -31,8 +31,6 @@ function sendMessage() {
     <div v-if="workspace">
       <h2>Welcome, {{ currentUser.name }}!</h2>
       <p>There are {{ workspace.users.length - 1 }} users online.</p>
-      <!--      <p>Tasks: {{ workspace.tasks.length }}</p>-->
-      <!--      <p>Messages: {{ workspace.messages.length }}</p>-->
       <KanbanBoard />
       <div class="chat" v-if="showChat">
         <div class="view">
