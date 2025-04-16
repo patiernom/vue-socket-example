@@ -2,8 +2,8 @@
 import { ref, onMounted, inject } from "vue";
 
 import useAuth from "@/hooks/useAuth.js";
-import useMessages from "@/hooks/useMessages.js";
-import useTasks from "@/hooks/useTasks.js";
+import useMessages from "@/store/useMessages.js";
+import useTasks from "@/store/useTasks.js";
 import useWorkspace from "@/store/useWorkspace.js";
 import KanbanBoard from "@/components/KanbanBoard.vue";
 

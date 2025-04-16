@@ -1,7 +1,8 @@
 <script setup>
 import { ref } from "vue";
-import { socketService } from "../services/socketService.js";
-import useTasks from "../hooks/useTasks.js";
+
+import { socketService } from "@/services/socketService.js";
+import useTasks from "@/store/useTasks.js";
 
 const STATUS_TITLE = {
   TODO: "To Do",

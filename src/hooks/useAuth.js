@@ -1,8 +1,8 @@
 import { computed, ref } from "vue";
 import { find, propEq } from "ramda";
 
-import { socketService } from "../services/socketService.js";
-import { isNilOrEmpty } from "../mixins/common.js";
+import { socketService } from "@/services/socketService.js";
+import { isNilOrEmpty } from "@/mixins/common.js";
 
 export const USER_STATUS = {
   ACTIVE: "active",

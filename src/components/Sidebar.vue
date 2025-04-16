@@ -2,7 +2,7 @@
 import { inject } from "vue";
 
 import Avatar from "./Avatar.vue";
-import useAuth, { USER_STATUS, STATUS_BADGE } from "../hooks/useAuth.js";
+import useAuth, { USER_STATUS, STATUS_BADGE } from "@/hooks/useAuth.js";
 
 const { currentUser, changeStatus, isAuthenticated } = useAuth();
 const { showChat, toggleChat } = inject("showChat");

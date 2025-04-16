@@ -1,7 +1,8 @@
 <script setup>
-import useAuth from "../hooks/useAuth.js";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+
+import useAuth from "@/hooks/useAuth.js";
 
 const username = ref();
 const password = ref();
