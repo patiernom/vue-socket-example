@@ -1,40 +1,39 @@
 <script setup>
 import { ref, onMounted, inject } from "vue";
-import { socketService } from "../services/socketService.js";
-import KanbanBoard from "../components/KanbanBoard.vue";
-import useTasks from "../hooks/useTasks.js";
-import useAuth from "../hooks/useAuth.js";
 
-const workspace = ref(null);
-const message = ref();
+import useAuth from "@/hooks/useAuth.js";
+import useMessages from "@/hooks/useMessages.js";
+import useTasks from "@/hooks/useTasks.js";
+import useWorkspace from "@/store/useWorkspace.js";
+import KanbanBoard from "@/components/KanbanBoard.vue";
 
+const loading = ref(true);
+
+const { listenForWorkspaceUpdate } = useWorkspace();
 const { currentUser } = useAuth();
-const { updateTasks } = useTasks();
+const { updateTasks, tasks } = useTasks();
+const { updateMessages, sendMessage, message, messages } = useMessages();
+
 const { showChat } = inject("showChat");
 
 onMounted(() => {
-  socketService.onWorkspaceUpdate((data) => {
-    console.log("Workspace updated:", data);
-    workspace.value = data;
+  listenForWorkspaceUpdate((data) => {
+    loading.value = false;
     updateTasks(data.tasks);
+    updateMessages(data.messages);
   });
 });
-
-function sendMessage() {
-  socketService.sendMessage(message.value);
-  message.value = "";
-}
 </script>
 
 <template>
   <div class="workspace-container">
-    <div v-if="workspace">
+    <div v-if="!loading">
       <h2>Welcome, {{ currentUser.name }}!</h2>
-      <p>There are {{ workspace.users.length - 1 }} users online.</p>
+      <!--      <p>There are {{ workspace.users.length - 1 }} users online.</p>-->
       <KanbanBoard />
       <div class="chat" v-if="showChat">
         <div class="view">
-          <div v-for="item in workspace.messages" class="message">
+          <div v-for="item in messages" class="message">
             <b>{{ item.userId }}</b>
             <span>
               {{ item.text }} <small> {{ item.createdAt }} </small>
