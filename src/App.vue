@@ -1,11 +1,13 @@
 <script setup>
 import { onMounted, onUnmounted, provide, ref } from "vue";
 
-import { socketService } from "./services/socketService.js";
-import Sidebar from "./components/Sidebar.vue";
+import Sidebar from "@/components/Sidebar.vue";
+import useConnection from "@/store/useConnection.js";
 
-const isConnected = ref(false);
 const showChat = ref(false);
+
+const { setUpEventListeners, isConnected, connect, disconnect } =
+  useConnection();
 
 const toggleChat = function () {
   showChat.value = !showChat.value;
@@ -15,23 +17,15 @@ provide("showChat", { showChat, toggleChat });
 
 onMounted(() => {
   // Connect to the socket server
-  socketService.connect();
+  connect();
 
   // Set up event listeners
-  socketService.onConnect(() => {
-    console.log("Connected to server");
-    isConnected.value = true;
-  });
-
-  socketService.onDisconnect(() => {
-    console.log("Disconnected from server");
-    isConnected.value = false;
-  });
+  setUpEventListeners();
 });
 
 onUnmounted(() => {
   // Clean up event listeners on component unmount
-  socketService.disconnect();
+  disconnect();
 });
 </script>
 
